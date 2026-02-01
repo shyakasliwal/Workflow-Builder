@@ -1,0 +1,62 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+.app-header {
+  background: #2c3e50;
+  color: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-header h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.app-header-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.app-btn {
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.app-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.app-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.app-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.app-btn-save {
+  background: rgba(46, 204, 113, 0.3);
+  border-color: rgba(46, 204, 113, 0.5);
+}
+
+.app-btn-save:hover:not(:disabled) {
+  background: rgba(46, 204, 113, 0.4);
+}
