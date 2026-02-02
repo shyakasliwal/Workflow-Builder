@@ -8,7 +8,7 @@ function WorkflowCanvas({ workflow, setWorkflow }) {
   const [editingNodeId, setEditingNodeId] = useState(null)
   const [canvasSize, setCanvasSize] = useState({ width: window.innerWidth, height: window.innerHeight })
 
-  // Calculate node positions for tree layout
+  
   const calculateLayout = (node, x = 0, y = 0, level = 0) => {
     const horizontalSpacing = 300
     const verticalSpacing = 200
@@ -17,7 +17,7 @@ function WorkflowCanvas({ workflow, setWorkflow }) {
     const nodeData = { ...node, x, y }
 
     if (node.type === 'branch' && node.children && Array.isArray(node.children)) {
-      // Branch nodes have multiple children (True/False)
+      
       const branchCount = node.children.length
       if (branchCount > 0) {
         const totalWidth = (branchCount - 1) * horizontalSpacing
@@ -31,7 +31,7 @@ function WorkflowCanvas({ workflow, setWorkflow }) {
         })
       }
     } else if (node.children) {
-      // Action nodes have one child (can be array with one item or single object)
+     
       let child = null
       if (Array.isArray(node.children) && node.children.length > 0) {
         child = node.children[0]
@@ -72,7 +72,7 @@ function WorkflowCanvas({ workflow, setWorkflow }) {
     const addNodeRecursive = (node) => {
       if (node.id === parentId) {
         if (node.type === 'branch' && branchLabel !== null) {
-          // Add to specific branch
+        
           if (!node.children) {
             node.children = []
           }
@@ -80,11 +80,11 @@ function WorkflowCanvas({ workflow, setWorkflow }) {
             child => child.branchLabel === branchLabel
           )
           if (branchIndex >= 0) {
-            // Insert between branch and existing child
+           
             const existingChild = node.children[branchIndex]
             newNode.branchLabel = branchLabel
             if (existingChild.children) {
-              // Existing child has children, insert new node
+            
               if (Array.isArray(existingChild.children)) {
                 newNode.children = [...existingChild.children]
               } else {
@@ -93,27 +93,27 @@ function WorkflowCanvas({ workflow, setWorkflow }) {
             }
             node.children[branchIndex] = newNode
           } else {
-            // Add new branch
+            
             newNode.branchLabel = branchLabel
             node.children.push(newNode)
           }
         } else {
-          // For action/start nodes, insert between parent and existing children
+         
           if (node.children) {
             if (Array.isArray(node.children) && node.children.length > 0) {
-              // Insert between parent and existing children
+              
               newNode.children = [...node.children]
               node.children = [newNode]
             } else if (!Array.isArray(node.children)) {
-              // Single child object
+              
               newNode.children = [node.children]
               node.children = [newNode]
             } else {
-              // Empty array
+             
               node.children = [newNode]
             }
           } else {
-            // No children, add as first child
+           
             node.children = node.type === 'end' ? null : [newNode]
           }
         }
@@ -138,16 +138,16 @@ function WorkflowCanvas({ workflow, setWorkflow }) {
   }
 
   const handleDeleteNode = (nodeId) => {
-    if (nodeId === 'root') return // Cannot delete root
+    if (nodeId === 'root') return 
 
     const deleteNodeRecursive = (node, parent = null, parentKey = null) => {
       if (node.id === nodeId) {
-        // Found the node to delete
+       
         if (parent) {
-          // Connect parent to deleted node's children
+          
           if (node.children) {
             if (Array.isArray(node.children)) {
-              // Replace this node with its children
+             
               if (Array.isArray(parent[parentKey])) {
                 const index = parent[parentKey].findIndex(n => n.id === nodeId)
                 parent[parentKey].splice(index, 1, ...node.children)
@@ -158,7 +158,7 @@ function WorkflowCanvas({ workflow, setWorkflow }) {
               parent[parentKey] = node.children
             }
           } else {
-            // No children, just remove the node
+            
             if (Array.isArray(parent[parentKey])) {
               parent[parentKey] = parent[parentKey].filter(n => n.id !== nodeId)
             } else {
@@ -220,12 +220,12 @@ function WorkflowCanvas({ workflow, setWorkflow }) {
         node.children.forEach((child, index) => {
           const childPos = positions[child.id]
           if (childPos) {
-            const startX = nodePos.x + 100 // Center of parent node
-            const startY = nodePos.y + 120 // Bottom of parent node
-            const endX = childPos.x + 100 // Center of child node
-            const endY = childPos.y // Top of child node
+            const startX = nodePos.x + 100 
+            const startY = nodePos.y + 120 
+            const endX = childPos.x + 100 
+            const endY = childPos.y
 
-            // Calculate control points for smooth curve
+          
             const midY = startY + (endY - startY) / 2
             const controlY1 = startY + 50
             const controlY2 = endY - 50
@@ -281,7 +281,7 @@ function WorkflowCanvas({ workflow, setWorkflow }) {
       }
     }
 
-    // Recursively get connections from children
+   
     if (node.children) {
       if (Array.isArray(node.children)) {
         node.children.forEach(child => {
@@ -329,7 +329,7 @@ function WorkflowCanvas({ workflow, setWorkflow }) {
     return nodes
   }
 
-  // Calculate canvas dimensions based on node positions
+ 
   const canvasWidth = Math.max(
     ...Object.values(positions).map(p => p.x + 300),
     canvasSize.width
