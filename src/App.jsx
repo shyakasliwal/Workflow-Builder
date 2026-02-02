@@ -20,12 +20,12 @@ function App() {
     setWorkflow(newWorkflow)
     
     if (addToHistory) {
-      // Remove any history after current index (when new action is performed)
+      
       historyRef.current = historyRef.current.slice(0, historyIndexRef.current + 1)
-      // Add new state to history
+    
       historyRef.current.push(JSON.parse(JSON.stringify(newWorkflow)))
       historyIndexRef.current = historyRef.current.length - 1
-      // Limit history to 50 states
+    
       if (historyRef.current.length > 50) {
         historyRef.current.shift()
         historyIndexRef.current--
@@ -62,7 +62,6 @@ function App() {
     alert('Workflow saved to console! Check the browser console (F12) to see the JSON data.')
   }
 
-  // Keyboard shortcuts
   React.useEffect(() => {
     const handleKeyDown = (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey) {
