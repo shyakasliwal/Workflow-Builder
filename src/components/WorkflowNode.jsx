@@ -15,13 +15,13 @@ function WorkflowNode({
   onUpdateLabel
 }) {
   const [showMenu, setShowMenu] = useState(false)
-  const [showConnectionMenu, setShowConnectionMenu] = useState(null) // null or branchLabel
+  const [showConnectionMenu, setShowConnectionMenu] = useState(null) 
   const [editValue, setEditValue] = useState(node.label)
   const inputRef = useRef(null)
   const menuRef = useRef(null)
   const connectionMenuRef = useRef(null)
 
-  // Close menus when clicking outside
+ 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -239,7 +239,7 @@ function WorkflowNode({
         </div>
       )}
 
-      {/* Connection Points */}
+      
       {canAddNode && (
         <div className="workflow-node-connection-points">
           {node.type === 'branch' ? (
@@ -287,7 +287,7 @@ function WorkflowNode({
                 )
               })
             ) : (
-              // Branch node with no children yet - show True/False connection points
+            
               <>
                 <div className="workflow-node-connection-group">
                   <div
@@ -364,7 +364,7 @@ function WorkflowNode({
               </>
             )
           ) : (
-            // Action/Start nodes: single connection point
+           
             <div className="workflow-node-connection-group">
               <div
                 className="workflow-node-connection-point workflow-node-connection-point-center"
